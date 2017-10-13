@@ -1,0 +1,92 @@
+
+<nav class="navbar navbar-default navbar-inverse" role="navigation">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div class="navbar-brand" >Претенденты на вступление</div>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <li class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li {% if app.request.get('_route') == 'homepage' %}class="active"{% endif %}><a href="{{ path('homepage') }}">Списки учасников</a></li>
+
+                {% if is_granted('ROLE_USER') %}
+                <li {% if app.request.get('_route') == 'edit_profile' %}class="active"{% endif %}><a href="{{ path('edit_profile', {'id':app.user.id}) }}">Редактировать мою информацию</a></li>
+                {% endif %}
+
+                </li>
+            </ul>
+            <!--
+            <form class="navbar-form navbar-left" role="search">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Введите ключевое слово">
+                </div>
+                <button type="submit" class="btn btn-default">Искать</button>
+            </form>
+            -->
+            <ul class="nav navbar-nav navbar-right">
+
+
+                {% if is_granted('ROLE_USER') %}
+
+                    <li><p class="navbar-text">Здравствуйте, </p></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>{{ app.user.FirstName }}!</b> <span class="caret"></span></a>
+                        <ul id="login-dp" class="dropdown-menu">
+                            <li><a href="{{ path('fos_user_security_logout') }}"><button  class="btn btn-default btn-block">Выйти</button></a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li><p class="navbar-text">Новенький ?</p></li>
+                    <li><a href="{{ path('fos_user_registration_register') }}" class="btn"><b>Зарегистрируйся</b></a></li>
+                    <li><p class="navbar-text">Уже есть аккаунт?</p></li>
+                    <li><a href="{{ path('fos_user_security_login') }}" class="btn" role="button">Войти</a></li>
+                    <!--class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Войти</b> <span class="caret"></span></a>
+                        <ul id="login-dp" class="dropdown-menu">
+                            <li>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        Войти
+                                        <form class="form" role="form" method="post" action="{##}{{ path('fos_user_security_check') }}" accept-charset="UTF-8" id="login-nav">
+                                            <div class="form-group">
+                                                <label class="sr-only" for="exampleInputEmail2">Логин или e-mail</label>
+                                                <input type="text" class="form-control" id="exampleInputEmail2" placeholder="Логин или e-mail" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="sr-only" for="exampleInputPassword2">Пароль</label>
+                                                <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Пароль" required>
+                                                <div class="help-block text-right"><a href="">Forget the password ?</a></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox"> запомнить меня
+                                                </label>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="bottom text-center">
+                                        Новенький ? <a href="{{ path('fos_user_registration_register') }}"><b>Зарегистрируйся</b></a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+    -->
+                    </li>
+
+                {% endif %}
+
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
